@@ -3,15 +3,24 @@ import logo from "./logo.svg";
 import "./App.css";
 import React from "react";
 import Pad from "./components/Pad";
+import {
+  IoVolumeHighSharp,
+  IoVolumeMuteSharp,
+  IoVolumeLowSharp,
+  IoVolumeMediumSharp,
+} from "react-icons/io5";
 
 function App() {
-  const [display, setDisplay] = useState("");
+  const [display, setDisplay] = useState("Tap to play");
+  const [volume, setVolume] = useState(1);
+  const [isMute, setIsMute] = useState(false);
 
   const playSfx = async (id) => {
     const audio = document.querySelector(`#${id}`).children[0];
     await audio.play();
 
-    setDisplay(id);
+    const time = new Date().getTime();
+    setDisplay(`${id} pressed on: ${time}`);
     setTimeout(function () {
       document.querySelector(`#${id}`).blur();
     }, 100);
@@ -22,12 +31,19 @@ function App() {
     const buttonPad = document.querySelector(`#drum-pad-${char}`);
     buttonPad.focus();
     buttonPad.click();
-
-    setDisplay(`rum-pad-${char}`);
+    const time = new Date().getTime();
+    setDisplay(`rum-pad-${char} pressed on: ${time}`);
     setTimeout(function () {
       buttonPad.blur();
     }, 100);
   };
+
+  const handleVolume = (e) => {
+    setIsMute(false);
+    setVolume(e.target.value);
+  };
+
+  const handleMute = () => setIsMute(!isMute);
 
   React.useEffect(() => {
     document.addEventListener("keydown", handleKeydown);
@@ -41,19 +57,39 @@ function App() {
       <div id="control">
         <label className="label">Simple Drumpad</label>
         <div className="container-flex">
-          <div>
-            <label>Volume</label>
-            <input type={"range"} />
-          </div>
-          <div>
-            <label>Mute</label>
-            <input type={"checkbox"} />
-          </div>
+          <button className="volume-container" onClick={handleMute}>
+            {volume == 0 || isMute ? (
+              <IoVolumeMuteSharp color="#ffffff" size={24} />
+            ) : volume < 0.5 ? (
+              <IoVolumeLowSharp
+                color="#ffffff"
+                size={24}
+                style={{ marginLeft: "-2px" }}
+              />
+            ) : volume == 1 ? (
+              <IoVolumeHighSharp color="#ffffff" size={24} />
+            ) : (
+              <IoVolumeMediumSharp
+                color="#ffffff"
+                size={24}
+                style={{ marginLeft: "-1px" }}
+              />
+            )}
+          </button>
+          <input
+            id="volume-control"
+            type={"range"}
+            min={0}
+            max={1}
+            step={0.01}
+            onChange={handleVolume}
+          />
         </div>
       </div>
       <div id="display">{display}</div>
       {audioSamples.map((sample, i) => (
         <Pad
+          volume={isMute ? 0 : volume}
           audio={sample.audio}
           label={sample.key}
           handlePlay={playSfx}
