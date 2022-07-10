@@ -10,6 +10,16 @@ import {
   IoVolumeMediumSharp,
 } from "react-icons/io5";
 
+import sfx0 from "./assets/sfx/drumpad/808-bd01.wav";
+import sfx1 from "./assets/sfx/drumpad/808-cla1.wav";
+import sfx2 from "./assets/sfx/drumpad/808-clap1.wav";
+import sfx3 from "./assets/sfx/drumpad/808-clo1.wav";
+import sfx4 from "./assets/sfx/drumpad/808-cme1.wav";
+import sfx5 from "./assets/sfx/drumpad/808-hh01.wav";
+import sfx6 from "./assets/sfx/drumpad/808-ma1.wav";
+import sfx7 from "./assets/sfx/drumpad/808-rim1.wav";
+import sfx8 from "./assets/sfx/drumpad/808-chi1.wav";
+
 function App() {
   const [display, setDisplay] = useState("Tap to play");
   const [volume, setVolume] = useState(1);
@@ -103,13 +113,13 @@ function App() {
 export default App;
 
 const audioSamples = [
-  { key: "Q", audio: "../src/assets/sfx/drumpad/808-bd01.wav" },
-  { key: "W", audio: "../src/assets/sfx/drumpad/808-chi1.wav" },
-  { key: "E", audio: "../src/assets/sfx/drumpad/808-cla1.wav" },
-  { key: "A", audio: "../src/assets/sfx/drumpad/808-clap1.wav" },
-  { key: "S", audio: "../src/assets/sfx/drumpad/808-clo1.wav" },
-  { key: "D", audio: "../src/assets/sfx/drumpad/808-cme1.wav" },
-  { key: "Z", audio: "../src/assets/sfx/drumpad/808-hh01.wav" },
-  { key: "X", audio: "../src/assets/sfx/drumpad/808-ma1.wav" },
-  { key: "C", audio: "../src/assets/sfx/drumpad/808-rim1.wav" },
+  { key: "Q", audio: sfx0 },
+  { key: "W", audio: sfx1 },
+  { key: "E", audio: sfx2 },
+  { key: "A", audio: sfx3 },
+  { key: "S", audio: sfx4 },
+  { key: "D", audio: sfx5 },
+  { key: "Z", audio: sfx6 },
+  { key: "X", audio: sfx7 },
+  { key: "C", audio: sfx8 },
 ];
